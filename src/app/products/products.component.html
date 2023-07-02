@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>List of Products</h2>
+<form [formGroup]="searchGroup" (ngSubmit)="searchproduct()" >
+
+  <div class="input-group">
+<label class="input-group-text">keyword</label>
+<input class="form-control" type="text" formControlName="keyword">
+<button class="btn btn-info"><i class="bi-search"></i></button>
+
+  </div>
+
+
+</form>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th> promotion</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.nom }}</td>
+      <td>{{ product.price }}</td>
+      <td > <i *ngIf="product.promotion==true" class="bi bi-heart-fill "> </i></td>
+      <td>
+        <button [ngClass]="product.promotion==true? 'btn-danger': 'btn-success'" class="btn  " (click)="setPromotion(product)">
+          <span *ngIf="product.promotion==true">promotion off</span>
+          <span *ngIf="product.promotion==false"> promotion On</span>
+        </button>
+
+      </td>
+      <td>
+        <button class="btn btn-danger" (click)="handledelete(product)"> <i class="bi bi-trash"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <ul class="nav nav-pills">
+    <li *ngFor="let item of [].constructor(this.totalpages); let i=index"> <a (click)="gotopage(i)" class="btn btn-outline-info">{{i}}</a></li>
+  </ul>
+</div>
+
